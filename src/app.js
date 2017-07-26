@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ImageService from './services/image-service';
-import Card from './card';
+import Card from './components/card';
 
 class App extends Component {
 
