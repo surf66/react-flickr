@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ImageService from './services/image-service';
 import Card from './card';
 
 class App extends Component {
@@ -9,10 +10,15 @@ class App extends Component {
     this.state = {
       images: []
     }
+
+    this.imageService = new ImageService();
   }
 
   componentDidMount() {
-    this.setState({ images: window.images });
+    this.imageService.getImages()
+      .then((response) => {
+        this.setState({ images: response.items });
+      });
   }
 
   render() {

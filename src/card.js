@@ -2,9 +2,8 @@ import React, { Component } from 'react';
 
 class Card extends Component {
 
-  constructor(props) {
-    super(props);
-    console.log(props);
+  constructor() {
+    super();
   }
 
   render() {
