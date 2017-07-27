@@ -12,7 +12,9 @@ class Card extends Component {
   render() {
     return (
       <div className="card">
-        <img src={this.props.imageSrc} />
+        <div className="card-image">
+          <img src={this.props.imageSrc} />
+        </div>
         <div className="card-details">
           <p>{this.props.title}</p>
           <a href="#" onClick={this._handleFavourite}>Favourite</a>
