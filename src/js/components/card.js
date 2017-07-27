@@ -6,6 +6,7 @@ class Card extends Component {
   constructor() {
     super();
     this.localStorageService = new LocalStorageService();
+    this.localStorageService.activate();
     this._handleFavourite = this._handleFavourite.bind(this);
   }
 
@@ -24,12 +25,15 @@ class Card extends Component {
   }
 
   _handleFavourite() {
-    const favourite = {
+    const like = {
       title: this.props.title,
       imageSrc: this.props.imageSrc
     }
 
-    this.localStorageService.saveToLocalStorage(favourite);
+    var currentLikes = this.localStorageService.get('likes');
+    currentLikes = currentLikes || [];
+    currentLikes.push(like);
+    this.localStorageService.upsert('likes', currentLikes);
   }
 
   _truncateText(text) {
