@@ -13,11 +13,11 @@ class Card extends Component {
     return (
       <div className="card">
         <div className="card-image">
-          <img src={this.props.imageSrc} />
+          <a href="#" onClick={this._handleFavourite}><img src="./images/heart.svg" /></a>
+          <img className="main-image" src={this.props.imageSrc} />
         </div>
         <div className="card-details">
-          <p>{this.props.title}</p>
-          <a href="#" onClick={this._handleFavourite}>Favourite</a>
+          <p>{this._truncateText(this.props.title)}</p>
         </div>
       </div>
     );
@@ -30,6 +30,11 @@ class Card extends Component {
     }
 
     this.localStorageService.saveToLocalStorage(favourite);
+  }
+
+  _truncateText(text) {
+    let truncatedString = text.substring(0, 60);
+    return `${truncatedString}...`;
   }
 }
 

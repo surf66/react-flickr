@@ -25,11 +25,13 @@ class App extends Component {
     return (
       <div className="App-header">
         <h2>React Flickr</h2>
-        {this.state.images.map((image, index) =>
-          <Card key={index}
-                title={image.title}
-                imageSrc={image.media.m} />
-        )}
+        <div className="container">
+          {this.state.images.map((image, index) =>
+            <Card key={index}
+                  title={image.title}
+                  imageSrc={image.media.m} />
+          )}
+        </div>
       </div>
     );
   }
