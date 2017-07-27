@@ -25,6 +25,14 @@ class App extends Component {
     return (
       <div className="App-header">
         <h2>React Flickr</h2>
+        <div className="row">
+          <div className="col-6">
+            1
+          </div>
+          <div className="col-6">
+            2
+          </div>
+        </div>
         {this.state.images.map((image, index) =>
           <Card key={index}
                 title={image.title}
