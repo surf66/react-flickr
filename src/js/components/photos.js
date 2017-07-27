@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import ImageService from '../services/image-service';
 import Card from './card';
 
-class App extends Component {
+class Photos extends Component {
 
   constructor() {
     super();
@@ -24,7 +24,6 @@ class App extends Component {
   render() {
     return (
       <div className="App-header">
-        <h2>React Flickr</h2>
         <div className="container">
           {this.state.images.map((image, index) =>
             <Card key={index}
@@ -37,4 +36,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default Photos;

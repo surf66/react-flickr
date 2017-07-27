@@ -473,6 +473,9 @@ textarea {
   .hidden-sm {
     display: block; } }
 
+body {
+  margin: 6rem 0 0; }
+
 .card {
   width: 100%;
   margin: 0 1rem 3rem 0;
@@ -506,6 +509,25 @@ textarea {
       position: absolute;
       top: 0.5rem;
       right: 0.5rem;
-      z-index: 9999; }
+      z-index: 9998; }
   .card .card-details {
     padding: 1.5rem; }
+
+header {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 9999;
+  padding: 1.5rem 0;
+  background: #212124; }
+  header ul {
+    margin: 0;
+    padding: 0; }
+    header ul li {
+      list-style: none;
+      display: inline-block;
+      margin-right: 2rem; }
+    header ul li a {
+      color: #ffffff;
+      text-decoration: none; }

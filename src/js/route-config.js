@@ -1,17 +1,21 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
-import App from './components/app';
-import Favourites from './components/favourites';
+import Photos from './components/photos';
+import Likes from './components/likes';
 
 const RouteConfig = () => (
   <Router>
     <div>
-      <ul>
-        <li><Link to="/">Home</Link></li>
-        <li><Link to="/favourites">Favourites</Link></li>
-      </ul>
-      <Route exact path="/" component={App}/>
-      <Route path="/favourites" component={Favourites}/>
+      <header>
+        <div className="container">
+          <ul>
+            <li><Link to="/">Photos</Link></li>
+            <li><Link to="/likes">Likes</Link></li>
+          </ul>
+        </div>
+      </header>
+      <Route exact path="/" component={Photos}/>
+      <Route path="/likes" component={Likes}/>
     </div>
   </Router>
 )

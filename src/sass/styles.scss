@@ -1,7 +1,11 @@
 // Core
 @import 'core/normalize';
 @import 'core/grid';
+@import 'core/scaffolding';
 @import 'core/colours';
 
 // Molecules
 @import 'molecules/card';
+
+// Organisms
+@import 'organisms/header';

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class Favourites extends Component {
+class Likes extends Component {
 
   constructor() {
     super();
@@ -9,10 +9,10 @@ class Favourites extends Component {
   render() {
     return (
       <div>
-        <h2>Favourites</h2>
+        <h2>Likes</h2>
       </div>
     );
   }
 }
 
-export default Favourites;
+export default Likes;
