@@ -4,11 +4,12 @@ class Card extends Component {
 
   constructor(props) {
     super(props);
+    console.log(props.photo);
 
     this.state = {
       photo: {
-        title: props.title,
-        src: props.src
+        title: props.photo.title,
+        src: props.photo.media.m
       }
     }
 

@@ -17,12 +17,23 @@ class Photos extends Component {
     this.localStorageService.activate();
 
     this._saveToLocalStorage = this._saveToLocalStorage.bind(this);
+    this._removeCurrentLikes = this._removeCurrentLikes.bind(this);
   }
 
   componentDidMount() {
     this.imageService.getImages()
       .then((response) => {
-        this.setState({ photos: response.items });
+        let results = response.items;
+        let likes = this.localStorageService.get('likes');
+
+        console.log(results.length);
+        // console.log(likes.length);
+
+        const photos = results.concat(likes);
+        console.log(photos);
+        // this._removeCurrentLikes(response.items);
+
+        this.setState({ photos: results });
       });
   }
 
@@ -32,8 +43,7 @@ class Photos extends Component {
         <div className="container">
           {this.state.photos.map((photo, index) =>
             <Card key={index}
-                  title={photo.title}
-                  src={photo.media.m}
+                  photo={photo}
                   onLike={this._saveToLocalStorage} />
           )}
 
@@ -50,6 +60,18 @@ class Photos extends Component {
     currentLikes = currentLikes || [];
     currentLikes.push(photo);
     this.localStorageService.upsert('likes', currentLikes);
+  }
+
+  _removeCurrentLikes(photos) {
+    let currentLikes = this.localStorageService.get('likes');
+    console.log(currentLikes);
+    console.log(photos);
+
+    for(var i=0; i<photos.length; i++) {
+      var photoUrl = photos[i].media.m;
+      var regex = new RegExp('([0-9a-z]+)(?=[^\/]*$)');
+      var photoId = regex.exec(photoUrl)[0];
+    }
   }
 }
 
