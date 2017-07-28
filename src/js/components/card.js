@@ -19,8 +19,8 @@ class Card extends Component {
     return (
       <div className="card">
         <div className="card-image">
-          <a href="#" onClick={this._likePhoto}><img src="./images/heart.svg" /></a>
-          <img className="main-image" src={this.state.photo.src} />
+          <button onClick={this._likePhoto}><img src="./images/heart.svg" alt="like" /></button>
+          <img className="main-image" src={this.state.photo.src} alt={this.state.photo.title} />
         </div>
         <div className="card-details">
           <p>{this._truncateText(this.state.photo.title)}</p>

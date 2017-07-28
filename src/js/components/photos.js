@@ -36,6 +36,10 @@ class Photos extends Component {
                   src={photo.media.m}
                   onLike={this._saveToLocalStorage} />
           )}
+
+          {!this.state.photos.length && 
+            <div className="loading-spinner"></div>
+          }
         </div>
       </div>
     );
