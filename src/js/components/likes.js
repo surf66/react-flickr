@@ -26,7 +26,7 @@ class Likes extends Component {
           {this.state.likes && this.state.likes.map((like, index) =>
             <Card key={index}
                   title={like.title}
-                  imageSrc={like.imageSrc} />
+                  src={like.src} />
           )}
 
           {!this.state.likes && 
