@@ -509,6 +509,38 @@ h1 {
     transform: scale(1);
     opacity: 0; } }
 
+.heart {
+  background-color: #dddddd;
+  display: inline-block;
+  height: 10px;
+  margin: 0 10px;
+  position: relative;
+  top: 0;
+  transform: rotate(-45deg);
+  width: 10px; }
+
+.heart:before,
+.heart:after {
+  content: "";
+  background-color: #dddddd;
+  border-radius: 50%;
+  height: 10px;
+  position: absolute;
+  width: 10px; }
+
+.heart:before {
+  top: -5px;
+  left: 0; }
+
+.heart:after {
+  left: 5px;
+  top: 0; }
+
+.heart.liked {
+  background-color: #cc0000; }
+  .heart.liked::before, .heart.liked::after {
+    background-color: #cc0000; }
+
 .card {
   width: 100%;
   margin: 0 1rem 3rem 0;
@@ -538,11 +570,14 @@ h1 {
       right: 0;
       bottom: 0;
       object-fit: cover; }
-    .card .card-image a {
+    .card .card-image button {
       position: absolute;
       top: 0.5rem;
-      right: 0.5rem;
-      z-index: 9998; }
+      right: 0.2rem;
+      z-index: 9998;
+      background: none;
+      border: 0;
+      padding: 0; }
   .card .card-details {
     padding: 1.5rem; }
 

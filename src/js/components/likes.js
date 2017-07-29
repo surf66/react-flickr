@@ -25,8 +25,7 @@ class Likes extends Component {
           <h1>Photos you've liked</h1>
           {this.state.likes && this.state.likes.map((like, index) =>
             <Card key={index}
-                  title={like.title}
-                  src={like.src} />
+                  photo={like} />
           )}
 
           {!this.state.likes && 

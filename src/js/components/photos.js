@@ -17,40 +17,40 @@ class Photos extends Component {
     this.localStorageService.activate();
 
     this._saveToLocalStorage = this._saveToLocalStorage.bind(this);
-    this._removeCurrentLikes = this._removeCurrentLikes.bind(this);
   }
 
   componentDidMount() {
     this.imageService.getImages()
       .then((response) => {
         let results = response.items;
+        for(var i=0; i<results.length; i++) {
+          results[i].liked = false;
+        }
         let likes = this.localStorageService.get('likes');
+        let photos;
 
-        console.log(results.length);
-        // console.log(likes.length);
-
-        const photos = results.concat(likes);
-        console.log(photos);
-        // this._removeCurrentLikes(response.items);
-
-        this.setState({ photos: results });
+        if(likes) {
+          photos = this._combineArrays(results, likes);
+        } else {
+          photos = results;
+        }
+      
+        this.setState({ photos: photos });
       });
   }
 
   render() {
     return (
-      <div className="App-header">
-        <div className="container">
-          {this.state.photos.map((photo, index) =>
-            <Card key={index}
-                  photo={photo}
-                  onLike={this._saveToLocalStorage} />
-          )}
+      <div className="container">
+        {this.state.photos.map((photo, index) =>
+          <Card key={index}
+                photo={photo}
+                onLike={this._saveToLocalStorage} />
+        )}
 
-          {!this.state.photos.length && 
-            <div className="loading-spinner"></div>
-          }
-        </div>
+        {!this.state.photos.length && 
+          <div className="loading-spinner"></div>
+        }
       </div>
     );
   }
@@ -58,20 +58,37 @@ class Photos extends Component {
   _saveToLocalStorage(photo) {
     let currentLikes = this.localStorageService.get('likes');
     currentLikes = currentLikes || [];
-    currentLikes.push(photo);
+
+    let alreadyLiked;
+    for(var i in currentLikes) {
+      if(currentLikes[i].media.m === photo.media.m) {
+        alreadyLiked = i;
+        break;
+      }
+    }
+    currentLikes.splice(alreadyLiked, 1);
+
+    if(!alreadyLiked) {
+      photo.liked = true;
+      currentLikes.push(photo);
+    }
+    
     this.localStorageService.upsert('likes', currentLikes);
   }
 
-  _removeCurrentLikes(photos) {
-    let currentLikes = this.localStorageService.get('likes');
-    console.log(currentLikes);
-    console.log(photos);
-
-    for(var i=0; i<photos.length; i++) {
-      var photoUrl = photos[i].media.m;
-      var regex = new RegExp('([0-9a-z]+)(?=[^\/]*$)');
-      var photoId = regex.exec(photoUrl)[0];
+  _combineArrays(arr1, arr2) {
+    var photos = [];
+    for(var i in arr1) {
+      var shared = false;
+      for (var j in arr2)
+          if (arr2[j].media.m === arr1[i].media.m) {
+              shared = true;
+              break;
+          }
+      if(!shared) photos.push(arr1[i])
     }
+    photos = photos.concat(arr2);
+    return photos;
   }
 }
 

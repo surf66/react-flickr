@@ -4,15 +4,6 @@ class Card extends Component {
 
   constructor(props) {
     super(props);
-    console.log(props.photo);
-
-    this.state = {
-      photo: {
-        title: props.photo.title,
-        src: props.photo.media.m
-      }
-    }
-
     this._likePhoto = this._likePhoto.bind(this);
   }
 
@@ -20,18 +11,20 @@ class Card extends Component {
     return (
       <div className="card">
         <div className="card-image">
-          <button onClick={this._likePhoto}><img src="./images/heart.svg" alt="like" /></button>
-          <img className="main-image" src={this.state.photo.src} alt={this.state.photo.title} />
+          <button onClick={this._likePhoto}>
+            <span className={"heart " + (this.props.photo.liked ? 'liked' : '')}></span>
+          </button>
+           <img className="main-image" src={this.props.photo.media.m} alt={this.props.photo.title} /> 
         </div>
         <div className="card-details">
-          <p>{this._truncateText(this.state.photo.title)}</p>
+           <p>{this._truncateText(this.props.photo.title)}</p> 
         </div>
       </div>
     );
   }
 
   _likePhoto() {
-    this.props.onLike(this.state.photo);
+    this.props.onLike(this.props.photo);
   }
 
   _truncateText(text) {

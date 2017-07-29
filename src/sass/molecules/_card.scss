@@ -34,11 +34,14 @@
       object-fit: cover;
     }
 
-    a {
+    button {
       position: absolute;
       top: 0.5rem;
-      right: 0.5rem;
+      right: 0.2rem;
       z-index: 9998;
+      background: none;
+      border: 0;
+      padding: 0;
     }
   }
 
