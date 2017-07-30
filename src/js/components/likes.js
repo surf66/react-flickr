@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import LocalStorageService from '../services/local-storage-service';
 import Card from './card';
 
-class Likes extends Component {
+export default class Likes extends Component {
 
   constructor() {
     super();
@@ -11,6 +11,8 @@ class Likes extends Component {
     }
 
     this.localStorageService = new LocalStorageService();
+
+    this._unlikePhoto = this._unlikePhoto.bind(this);
   }
 
   componentDidMount() {
@@ -23,18 +25,30 @@ class Likes extends Component {
       <div>
         <div className="container">
           <h1>Photos you've liked</h1>
-          {this.state.likes && this.state.likes.map((like, index) =>
-            <Card key={index}
-                  photo={like} />
-          )}
-
-          {!this.state.likes && 
+          {!this.state.likes || !this.state.likes.length ? (
             <p>You haven't liked any photos yet.</p>
-          }
+          ) : (
+            this.state.likes && this.state.likes.map((like, index) =>
+              <Card key={index} photo={like} onLike={this._unlikePhoto}  />
+            )
+          )}
         </div>
       </div>
     );
   }
-}
 
-export default Likes;
+  _unlikePhoto(photo) {
+    let currentLikes = this.localStorageService.get('likes');
+    currentLikes = currentLikes || [];
+
+    for(var i in currentLikes) {
+      if(currentLikes[i].media.m === photo.media.m) {
+        currentLikes.splice(i, 1);
+        break;
+      }
+    }
+    
+    this.localStorageService.upsert('likes', currentLikes);
+    this.setState({ likes: currentLikes });
+  }
+}

@@ -3,7 +3,7 @@ import ImageService from '../services/image-service';
 import LocalStorageService from '../services/local-storage-service';
 import Card from './card';
 
-class Photos extends Component {
+export default class Photos extends Component {
 
   constructor() {
     super();
@@ -42,15 +42,13 @@ class Photos extends Component {
   render() {
     return (
       <div className="container">
-        {this.state.photos.map((photo, index) =>
-          <Card key={index}
-                photo={photo}
-                onLike={this._saveToLocalStorage} />
-        )}
-
-        {!this.state.photos.length && 
+        {!this.state.photos.length ? (
           <div className="loading-spinner"></div>
-        }
+        ) : (
+          this.state.photos.map((photo, index) =>
+            <Card key={index} photo={photo} onLike={this._saveToLocalStorage} />
+          )
+        )}
       </div>
     );
   }
@@ -62,11 +60,11 @@ class Photos extends Component {
     let alreadyLiked;
     for(var i in currentLikes) {
       if(currentLikes[i].media.m === photo.media.m) {
-        alreadyLiked = i;
+        currentLikes.splice(i, 1);
+        alreadyLiked = true;
         break;
       }
     }
-    currentLikes.splice(alreadyLiked, 1);
 
     if(!alreadyLiked) {
       photo.liked = true;
@@ -91,5 +89,3 @@ class Photos extends Component {
     return photos;
   }
 }
-
-export default Photos;

@@ -577,7 +577,9 @@ h1 {
       z-index: 9998;
       background: none;
       border: 0;
-      padding: 0; }
+      padding: 0;
+      outline: none;
+      cursor: pointer; }
   .card .card-details {
     padding: 1.5rem; }
 
