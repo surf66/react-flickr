@@ -27,7 +27,7 @@ To get started I built a basic React application using [create react app](). Thi
 
 I had to slightly amend the buidl process so that I could add in a SASS compilation and watch task. I used `node-sass-chokidar` to comile SASS into CSS and also to watch for any changes to SASS files. I used `concurrently` in order to run the build process and SASS comilation tasks at the same time.
 
-# Challenges
+## Challenges
 One part of the development which I struggled with was with Flickrs public API. I have never worked with `JSONP` in the past and struggled to parse the data into my application. It took me a while to realise the reason JSONP exists is to get around CORS issues. I was trying to retreive the data using JavaScripts `XMLHttpRequest`. In the end I used jQuery's `getJSON` method. Not ideal to have to use a large JavaScript library for one request, however this issue was slowing me down.
 
 ## Future Development
