@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ImageService from '../services/image-service';
+import PhotosService from '../services/photos-service';
 import LocalStorageService from '../services/local-storage-service';
 import Card from './card';
 
@@ -9,10 +9,11 @@ export default class Photos extends Component {
     super();
 
     this.state = {
-      photos: []
+      photos: [],
+      failedRequest: false
     }
 
-    this.imageService = new ImageService();
+    this.photosService = new PhotosService();
     this.localStorageService = new LocalStorageService();
     this.localStorageService.activate();
 
@@ -20,7 +21,7 @@ export default class Photos extends Component {
   }
 
   componentDidMount() {
-    this.imageService.getImages()
+    this.photosService.getPhotos()
       .then((response) => {
         let results = response.items;
         let likes = this.localStorageService.get('likes');
@@ -37,19 +38,26 @@ export default class Photos extends Component {
         }
       
         this.setState({ photos: photos });
+      })
+      .catch(() => {
+        this.setState({ failedRequest: true });
       });
   }
 
   render() {
     return (
       <div className="container">
-        {!this.state.photos.length ? (
+        {!this.state.photos.length && !this.state.failedRequest ? (
           <div className="loading-spinner"></div>
         ) : (
           this.state.photos.map((photo, index) =>
             <Card key={index} photo={photo} onLike={this._saveToLocalStorage} />
           )
         )}
+
+        {this.state.failedRequest &&
+          <p>Sorry, somthing went wrong. We were unable to load photos.</p>
+        }
       </div>
     );
   }
