@@ -23,11 +23,12 @@ export default class Photos extends Component {
     this.imageService.getImages()
       .then((response) => {
         let results = response.items;
+        let likes = this.localStorageService.get('likes');
+        let photos;
+        
         for(var i=0; i<results.length; i++) {
           results[i].liked = false;
         }
-        let likes = this.localStorageService.get('likes');
-        let photos;
 
         if(likes) {
           photos = this._combineArrays(results, likes);
